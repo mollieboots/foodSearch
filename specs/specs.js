@@ -1,13 +1,5 @@
 describe('isGlutenFree', function(){
   it("locates restaurants that meet certain criteria", function(){
-    expect(foodFinder('glutenfree')).to.eql(["The Original Dinerant", "Natural Selection"]);
+    expect(isGlutenFree()).to.eql(["Natural Selection", "The Original Dinerant"]);
   });
 });
-
-
-search {
-  location:
-  cuisine:
-  restrictions:
-  results: []
-}
