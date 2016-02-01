@@ -4,8 +4,7 @@ cuisine: ["European"],
 rating: 5,
 price_range: 3,
 location: "45.560957, -122.634061",
-restrictions:
-{glutenFree: true, vegetarian: true, pescetarian: true, vegan: true, dairyFree: true, nutFree: false, hindu: true, jewish: true, muslim: true}
+restrictions: ["glutenFree", "vegetarian", "pescetarian", "vegan", "dairyFree",  "hindu", "jewish", "muslim"]
 }
 
 var restaurant1 = {
@@ -13,7 +12,7 @@ name: "The Original Dinerant",
 cuisine: ["Breakfast","Brunch","Diner"],
 rating: 4,
 pricerange: 2,
-restrictions: {glutenFree: true, vegetarian: true, pescetarian: true, vegan: false, dairyFree: false, nutFree: true, hindu: false, jewish: true, muslim: true}
+restrictions: ["glutenFree", "vegetarian", "pescetarian", "nutFree", "jewish, muslim"]
 }
 
 var bunkSandwiches = {
@@ -21,16 +20,16 @@ name: "Bunk Sandwiches",
 cuisine: ["sandwiches","brunch"],
 rating: 4,
 pricerange: 1,
-restrictions: {glutenFree: false, vegan: true, vegetarian: true, pescatarian: true, nutFree: true, hindu: true, jewish: true, muslim: true, dairyFree: true}
+restrictions: ["vegan", "vegetarian", "pescatarian", "nutFree", "hindu", "jewish", "muslim", "dairyFree"]
 }
 
 var restaurants = [mike_restaurant_1, bunkSandwiches, restaurant1];
 
 
-function Search (location, cuisine, restrictions, results) {
+function Search (location, cuisine, limits, results) {
   this.location = location;
   this.cuisine = cuisine;
-  this.restrictions= restrictions;
+  this.limits= limits;
   this.results = [];
 }
 
@@ -47,11 +46,14 @@ function isGlutenFree() {
 
 []
 
-function isGlutenFree() {
+
+function meetsRestrictions(userInput) {
     restaurants.forEach(function(restaurant) {
-      if (restaurant.restrictions.glutenFree === true && restaurant.restrictions.vegetarian === true) {
+      var restaurantMatch = userInput.every(function (val) {
+        return restaurant.restrictions.indexOf(val) >= 0; });
+      if (restaurantMatch === true){
         newSearch.results.push(restaurant.name);
-    }
+      }
   });
     return newSearch.results;
 }
